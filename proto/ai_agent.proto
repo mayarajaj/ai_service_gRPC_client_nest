@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package aiagent;
+
+service AiAgentService {
+  rpc ClassifyConversation (ConversationRequest) returns (ClassificationResponse);
+}
+
+message ConversationRequest {
+  string conversation = 1;
+}
+
+message ClassificationResponse {
+  string result_json = 1;
+}
+
