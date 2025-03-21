@@ -15,7 +15,7 @@ class AiAgentServiceServicer(ai_agent_pb2_grpc.AiAgentServiceServicer):
         message = f"""
 you are an Ai agent helping with Multiclassification a conversation .
 
-the  classes is  : "order" , discover menu" , "order status' , "complaint" . 
+the  classes is  : "order","discover menu","order status","complaint" . 
 
 the conversation is between {delimiter} characters .
 
@@ -27,9 +27,10 @@ Process (only) the last message and ignore every messages before ,  based on it 
 
 Give an analysis of why this category was chosen in the JSON format . 
 
-{delimiter}{conversation}{delimiter}
+
 """
-        messages = [{'role': 'user', 'content': f"{message}"}]
+        messages = [{'role': 'system', 'content': f"{message}"} , 
+                    {'role' : 'user' , 'content' : f"{delimiter}{conversation}{delimiter}"}]
         result = get_completion_from_messages(messages)
         return ai_agent_pb2.ClassificationResponse(result_json=result)
 
